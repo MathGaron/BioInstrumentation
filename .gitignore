@@ -4,3 +4,6 @@ RemoteSystemsTempFiles/*
 targetConfigs/*
 .launches/*
 .settings/*
+.project
+.cproject
+.ccsproject
