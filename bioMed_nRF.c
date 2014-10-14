@@ -21,14 +21,17 @@ HandleNRF nRFHL_init(bool isTX){
 	nRFHL_initSPI();
 
 	nRF_init();
-	if(isTX){
+	if(isTX)
 		nRF_set_TX_mode();
-	}
-	else{
+	else
 		nRF_set_RX_mode();
-	}
+
 	nRF_clear_IRQ();
-	nRF_CE_low;
+
+	if(isTX)
+		nRF_CE_low;
+	else
+		nRF_CE_high;
 
 	return handle;
 }
@@ -60,7 +63,6 @@ void nRFHL_initSPI(){
 }
 
 void nRFHL_download(HandleNRF *handle){
-	nRF_CE_high;
 	nRF_clear_IRQ();
 	nRF_download_RX_payload(handle->RX_data_buffer);
 	handle->nRF_IRQ_flag = 0;

@@ -33,6 +33,7 @@ int main(void) {
 
     UART_init();
     RF = nRFHL_init(isTx);
+    P1DIR |= 0x01;
 
     while(1){
 #ifdef RXMODE
@@ -53,6 +54,8 @@ int main(void) {
 #pragma vector=PORT2_VECTOR
 __interrupt void Port_2(void)
 {
+P1OUT |= 1;
 P2IFG &= ~BIT3;  //  IFG  cleared
 RF.nRF_IRQ_flag = 1;
+P1OUT &= 0;
 }
