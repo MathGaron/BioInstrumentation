@@ -29,6 +29,7 @@ int main(void) {
     __bis_SR_register(SCG0);
     UCSCTL1  =  DCORSEL_5;//  Select  DCO  range  16MHz  operation
     UCSCTL2  |=  249;
+    _bic_SR_register(SCG0);
     __delay_cycles(250000);
 
     UART_init();
