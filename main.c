@@ -1,27 +1,58 @@
 #include "driverlib.h"
 #include "bioMed_UART.h"
+#include "bioMed_nRF.h"
+
+#define TXMODE
+
+HandleNRF RF;
+
+#ifdef TXMODE
+bool isTx = true;
+#endif
+#ifdef RXMODE
+bool isTx = false;
+#endif
+
+int i;
 
 int main(void) {
 
     WDT_A_hold(WDT_A_BASE);
+    UCSCTL3 = SELREF_2;
+    UCSCTL4 |= SELA_2;
+    UCSCTL0 = 0x0000;
+
+    do{
+    	UCSCTL7 &= ~(XT2OFFG + XT1LFOFFG + DCOFFG);
+    	SFRIFG1 &= ~OFIFG;
+    }while(SFRIFG1&OFIFG);
+    __bis_SR_register(SCG0);
+    UCSCTL1  =  DCORSEL_5;//  Select  DCO  range  16MHz  operation
+    UCSCTL2  |=  249;
+    __delay_cycles(250000);
+
     UART_init();
-    int size = 2;
-    unsigned char buff[size];
-    buff[0] = 0;
-    buff [1] = 100;
+    RF = nRFHL_init(isTx);
 
     while(1){
-    	UART_send_bytes(buff,size);
+#ifdef RXMODE
+    	if(RF.nRF_IRQ_flag == 1){
+    		nRFHL_download(&RF);
+    		UART_upload(RF.RX_data_buffer,32);
+    	}
+#endif
+#ifdef TXMODE
+    	char buffer[5] = "penus";
+    	nRFHL_upload(&RF,buffer,5);
+#endif
     }
 
+}
 
-
-	//Enter LPM4 w/interrupts enabled
-	__bis_SR_register(LPM4_bits + GIE);
-
-	//For debugger
-	__no_operation();
-
-
-    return (0);
+//  nRF24L01+  IRQ
+#pragma vector=PORT2_VECTOR
+__interrupt void Port_2(void)
+{
+P2IFG &= ~BIT3;  //  IFG  cleared
+RF.nRF_IRQ_flag = 1;
 }
