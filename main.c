@@ -17,7 +17,7 @@ int i;
 
 int main(void) {
 
-    WDT_A_hold(WDT_A_BASE);
+	WDTCTL = WDTPW + WDTHOLD;
     UCSCTL3 = SELREF_2;
     UCSCTL4 |= SELA_2;
     UCSCTL0 = 0x0000;
@@ -29,7 +29,7 @@ int main(void) {
     __bis_SR_register(SCG0);
     UCSCTL1  =  DCORSEL_5;//  Select  DCO  range  16MHz  operation
     UCSCTL2  |=  249;
-    _bic_SR_register(SCG0);
+    __bic_SR_register(SCG0);
     __delay_cycles(250000);
 
     UART_init();
