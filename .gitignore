@@ -8,3 +8,5 @@ targetConfigs/*
 .project
 .cproject
 .ccsproject
+driverlib/*
+lnk_*

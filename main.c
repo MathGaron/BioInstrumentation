@@ -2,8 +2,8 @@
 #include "bioMed_UART.h"
 #include "bioMed_nRF.h"
 
-#define TXMODE
-
+#define RXMODE
+//#define TXMODE
 HandleNRF RF;
 
 #ifdef TXMODE
@@ -35,12 +35,14 @@ int main(void) {
     UART_init();
     RF = nRFHL_init(isTx);
     P1DIR |= 0x01;
-
+    UART_upload("Jsuis pret",10);
     while(1){
+
 #ifdef RXMODE
     	if(RF.nRF_IRQ_flag == 1){
     		nRFHL_download(&RF);
     		UART_upload(RF.RX_data_buffer,32);
+
     	}
 #endif
 #ifdef TXMODE
