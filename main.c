@@ -2,8 +2,8 @@
 #include "bioMed_UART.h"
 #include "bioMed_nRF.h"
 
-#define RXMODE
-//#define TXMODE
+//#define RXMODE
+#define TXMODE
 HandleNRF RF;
 
 #ifdef TXMODE
@@ -58,8 +58,9 @@ int main(void) {
 #endif
 
 #ifdef TXMODE
-		char buffer[5] = "penus";
-		nRFHL_upload(&RF,buffer,5);
+		uint8_t buffer[2] = {50, 51};
+		nRFHL_upload(&RF, buffer, 2);
+		__delay_cycles(1000000);
 #endif
 
     }
