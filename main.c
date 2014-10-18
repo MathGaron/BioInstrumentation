@@ -1,10 +1,17 @@
 #include "driverlib.h"
 #include "bioMed_UART.h"
 #include "bioMed_nRF.h"
+#include "bioMed_ADC.h"
 
-#define RXMODE
-//#define TXMODE
+//#define RXMODE
+#define TXMODE
 HandleNRF RF;
+
+typedef union converter
+{
+	uint16_t uint;
+	uint8_t character[2];
+}converter;
 
 #ifdef TXMODE
 bool isTx = true;
@@ -38,12 +45,14 @@ int main(void) {
 
 
 	#ifdef RXMODE
-    	UART_upload("I am RX",7);
+    	UART_upload("I am RX\n\r",9);
 	#endif
 
 
     #ifdef TXMODE
-    	UART_upload("I am TX",7);
+    	UART_upload("I am TX\n\r",9);
+    	ADC_init();
+    	converter dataADC;
 	#endif
 
     __bis_SR_register(GIE);
@@ -58,8 +67,8 @@ int main(void) {
 #endif
 
 #ifdef TXMODE
-		char buffer[5] = "penus";
-		nRFHL_upload(&RF,buffer,5);
+    	dataADC.uint = ADC_get();
+		nRFHL_upload(&RF,dataADC.character,2);
 #endif
 
     }

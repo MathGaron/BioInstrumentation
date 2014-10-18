@@ -8,7 +8,7 @@
 #ifndef BIOMED_NRF_H_
 #define BIOMED_NRF_H_
 
-#include "driverlib/MSP430F5xx_6xx/driverlib.h"
+#include "driverlib.h"
 #include "nRF24L01p_lib/nRF.h"
 
 typedef struct HandleRF{
