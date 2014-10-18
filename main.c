@@ -29,13 +29,24 @@ int main(void) {
     __bis_SR_register(SCG0);
     UCSCTL1  =  DCORSEL_5;//  Select  DCO  range  16MHz  operation
     UCSCTL2  |=  249;
-    _bic_SR_register(SCG0);
+    __bic_SR_register(SCG0);
     __delay_cycles(250000);
 
     UART_init();
     RF = nRFHL_init(isTx);
     P1DIR |= 0x01;
-    UART_upload("Jsuis pret",10);
+
+
+	#ifdef RXMODE
+    	UART_upload("I am RX",7);
+	#endif
+
+
+    #ifdef TXMODE
+    	UART_upload("I am TX",7);
+	#endif
+
+    __bis_SR_register(GIE);
     while(1){
 
 #ifdef RXMODE
@@ -45,10 +56,12 @@ int main(void) {
 
     	}
 #endif
+
 #ifdef TXMODE
-    	char buffer[5] = "penus";
-    	nRFHL_upload(&RF,buffer,5);
+		char buffer[5] = "penus";
+		nRFHL_upload(&RF,buffer,5);
 #endif
+
     }
 
 }
