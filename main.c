@@ -2,8 +2,8 @@
 #include "bioMed_UART.h"
 #include "bioMed_nRF.h"
 
-//#define RXMODE
-#define TXMODE
+#define RXMODE
+//#define TXMODE
 HandleNRF RF;
 
 #ifdef TXMODE

@@ -45,11 +45,11 @@ void nRF_set_TX_mode(void)
     // RPD : Received Power Detector
     //++++++++++++++++++++++++++
     // RX_ADDR_P0 : Receive address data pipe 0
-    data[0] = 0x0F;
-    data[1] = 0x0E;
-    data[2] = 0x0F;
-    data[3] = 0x0E;
-    data[4] = 0x0F;
+    data[0] = 0xE7;
+    data[1] = 0xE7;
+    data[2] = 0xE7;
+    data[3] = 0xE7;
+    data[4] = 0xE7;
     nRF_reg_write(0x0A,data,5);
     //++++++++++++++++++++++++++
     // RX_ADDR_P1 : Receive address data pipe 1 
@@ -63,11 +63,11 @@ void nRF_set_TX_mode(void)
     // RX_ADDR_P5 : Receive address data pipe 5
     //++++++++++++++++++++++++++
     // TX_ADDR : Transmit address
-    data[0] = 0x0F;
-    data[1] = 0x0E;
-    data[2] = 0x0F;
-    data[3] = 0x0E;
-    data[4] = 0x0F;
+    data[0] = 0xE7;
+    data[1] = 0xE7;
+    data[2] = 0xE7;
+    data[3] = 0xE7;
+    data[4] = 0xE7;
     nRF_reg_write(0x10,data,5);
     //++++++++++++++++++++++++++
     // RX_PW_P0 : Number of bytes in RX payload in data pipe 0 ????????????
@@ -139,11 +139,11 @@ void nRF_set_RX_mode(void)
     // RPD : Received Power Detector
     //++++++++++++++++++++++++++
     // RX_ADDR_P0 : Receive address data pipe 0
-    data[0] = 0x0F;
-    data[1] = 0x0E;
-    data[2] = 0x0F;
-    data[3] = 0x0E;
-    data[4] = 0x0F;
+    data[0] = 0xE7;
+    data[1] = 0xE7;
+    data[2] = 0xE7;
+    data[3] = 0xE7;
+    data[4] = 0xE7;
     nRF_reg_write(0x0A,data,5);
     //++++++++++++++++++++++++++
     // RX_ADDR_P1 : Receive address data pipe 1 
@@ -157,11 +157,11 @@ void nRF_set_RX_mode(void)
     // RX_ADDR_P5 : Receive address data pipe 5
     //++++++++++++++++++++++++++
     // TX_ADDR : Transmit address
-    data[0] = 0x0F;
-    data[1] = 0x0E;
-    data[2] = 0x0F;
-    data[3] = 0x0E;
-    data[4] = 0x0F;
+    data[0] = 0xE7;
+    data[1] = 0xE7;
+    data[2] = 0xE7;
+    data[3] = 0xE7;
+    data[4] = 0xE7;
     nRF_reg_write(0x10,data,5);
     //++++++++++++++++++++++++++
     // RX_PW_P0 : Number of bytes in RX payload in data pipe 0 ????????????

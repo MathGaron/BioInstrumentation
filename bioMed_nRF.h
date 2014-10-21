@@ -13,8 +13,8 @@
 
 typedef struct HandleRF{
 	char nRF_IRQ_flag;
-	char RX_data_buffer[32];
-	char TX_data_buffer[32];
+	uint8_t RX_data_buffer[32];
+	uint8_t TX_data_buffer[32];
 }HandleNRF;
 
 HandleNRF nRFHL_init(bool isTX);

@@ -10,6 +10,8 @@ void nRF_init(void)
     nRF_SELECT;
     for(i = 0 ; i < 65000; i++);
     nRF_DESELECT;
+    nRF_FLUSH_TX();
+    nRF_FLUSH_RX();
 }
 //---------------------------------------------------------------------
 void nRF_reg_write(char addr, char *data, unsigned data_length)
