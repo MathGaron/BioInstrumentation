@@ -69,6 +69,7 @@ int main(void) {
 #ifdef TXMODE
     	dataADC.uint = ADC_get();
 		nRFHL_upload(&RF,dataADC.character,2);
+		__delay_cycles(1000000);
 #endif
 
     }

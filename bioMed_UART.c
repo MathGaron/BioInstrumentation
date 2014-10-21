@@ -16,11 +16,11 @@ void UART_init(){
 	UCA1CTL1 &= ~UCSWRST;//  **Initialize  USCI  state  machine**
 }
 
-void UART_upload(char* buffer, int size){
+void UART_upload(uint8_t* buffer, int size){
 	int i;
 	for(i = 0; i < size; ++i){
 		while(!(UCA1IFG&UCTXIFG));   //  USCI_A0  TX  buffer  ready?
-		UCA1TXBUF = buffer[i]; //  TX -­‐>  RXed  chara
+		UCA1TXBUF = buffer[i]; //  TX   RXed  chara
 	}
 }
 

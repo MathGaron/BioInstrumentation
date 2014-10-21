@@ -15,7 +15,7 @@ HandleNRF nRFHL_init(bool isTX){
 	P2DIR |= BIT5; //  Set  nRF_CSN  (Chip  Select)  pin  to  output
 	P2DIR &= ~BIT3;//  Set  nRF_IRQ  pin  to  input
 	P2IE = BIT3;   //  Enable  nRF_IRQ  interrupt
-	P2IES = BIT3;  //  hi-­‐to-­‐low  interrupt
+	P2IES = BIT3;  //  hiow  interrupt
 	P2IFG &= ~BIT3;//  clear  nRF_IRQ  inte
 
 	nRFHL_initSPI();
@@ -68,7 +68,7 @@ void nRFHL_download(HandleNRF *handle){
 	handle->nRF_IRQ_flag = 0;
 }
 
-void nRFHL_upload(HandleNRF *handle,char *buffer, int size){
+void nRFHL_upload(HandleNRF *handle,uint8_t *buffer, int size){
 	int i;
 	for(i = 0; i < size; ++i){
 		handle->TX_data_buffer[i] = buffer[i];
