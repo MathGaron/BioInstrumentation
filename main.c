@@ -7,11 +7,7 @@
 //#define TXMODE
 HandleNRF RF;
 
-typedef union converter
-{
-	uint16_t uint;
-	uint8_t character[2];
-}converter;
+
 
 #ifdef TXMODE
 bool isTx = true;
@@ -21,6 +17,11 @@ bool isTx = false;
 #endif
 
 int i;
+int currentADCindex = 0;
+int adcDataReadyFlag = 0;
+
+converter dataADC[32];
+
 
 int main(void) {
 
@@ -43,6 +44,10 @@ int main(void) {
     RF = nRFHL_init(isTx);
     P1DIR |= 0x01;
 
+    // TO DO PUT IN ANOTHER FILE
+
+
+
 
 	#ifdef RXMODE
     	UART_upload("I am RX\n\r",9);
@@ -50,9 +55,12 @@ int main(void) {
 
 
     #ifdef TXMODE
+    	TA0CCTL0 = CCIE;                          // CCR0 interrupt enabled
+    	TA0CCR0 = 50000;
+    	TA0CTL = TASSEL_2 + MC_1 + TACLR;  // SMCLK, upmode, clear TAR
     	UART_upload("I am TX\n\r",9);
     	ADC_init();
-    	converter dataADC;
+
 	#endif
 
     __bis_SR_register(GIE);
@@ -67,14 +75,33 @@ int main(void) {
 #endif
 
 #ifdef TXMODE
-    	dataADC.uint = ADC_get();
-		nRFHL_upload(&RF,dataADC.character,2);
-		__delay_cycles(1000000);
+    	if (adcDataReadyFlag == 1){
+		nRFHL_upload(&RF,dataADC,32);
+		//__delay_cycles();
+		adcDataReadyFlag = 0;
+    	}
 #endif
 
     }
+}
+// Timer0 A0 interrupt service routine
+#pragma vector=TIMER0_A0_VECTOR
+__interrupt void TIMER0_A0_ISR(void)
+{
+	if (currentADCindex < 16)
+	{
+		dataADC[currentADCindex].uint = ADC_get();
+		currentADCindex++;
+	}
+	else
+	{
+		adcDataReadyFlag = 1;
+		currentADCindex = 0;
+	}
 
 }
+
+
 
 //  nRF24L01+  IRQ
 #pragma vector=PORT2_VECTOR

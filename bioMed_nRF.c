@@ -68,10 +68,10 @@ void nRFHL_download(HandleNRF *handle){
 	handle->nRF_IRQ_flag = 0;
 }
 
-void nRFHL_upload(HandleNRF *handle,uint8_t *buffer, int size){
+void nRFHL_upload(HandleNRF *handle, converter *buffer, int size){
 	int i;
 	for(i = 0; i < size; ++i){
-		handle->TX_data_buffer[i] = buffer[i];
+		handle->TX_data_buffer[i] = buffer[i].uint;
 	}
 	nRF_upload_TX_payload(handle->TX_data_buffer);
 	nRF_CE_high;

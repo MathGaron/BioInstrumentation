@@ -17,12 +17,18 @@ typedef struct HandleRF{
 	uint8_t TX_data_buffer[32];
 }HandleNRF;
 
+typedef union converter
+{
+	uint16_t uint;
+	uint8_t character[2];
+}converter;
+
 HandleNRF nRFHL_init(bool isTX);
 void nRFHL_clearTxBuffer(HandleNRF *handle);
 void nRFHL_clearRxBuffer(HandleNRF *handle);
 void nRFHL_initSPI();
 void nRFHL_download(HandleNRF *handle);
-void nRFHL_upload(HandleNRF *handle,uint8_t *buffer, int size);
+void nRFHL_upload(HandleNRF *handle, converter *buffer, int size);
 
 
 

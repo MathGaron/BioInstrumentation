@@ -62,7 +62,7 @@ void nRF_reg_read(char addr, char *data, unsigned data_length)
     nRF_DESELECT;    
 }
 //---------------------------------------------------------------------
-void nRF_upload_TX_payload(char *data)
+void nRF_upload_TX_payload(uint8_t *data)
 {
     char i;
 
@@ -85,7 +85,7 @@ void nRF_upload_TX_payload(char *data)
     //SPI_buffer_flush();
 }
 //---------------------------------------------------------------------
-void nRF_download_RX_payload(char *data)
+void nRF_download_RX_payload(uint8_t *data)
 {
     char i;
     

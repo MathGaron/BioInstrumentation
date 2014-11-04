@@ -1,4 +1,4 @@
-
+#include "driverlib.h"
 #include <msp430.h>
 #include "msp430f5529.h"
 //#include "utils.h"
@@ -8,8 +8,8 @@ extern void nRF_init(void);
 extern void nRF_reg_write(char addr, char *data, unsigned data_length);
 extern void nRF_reg_read(char addr, char *data, unsigned data_length);
 
-extern void nRF_upload_TX_payload(char *data);
-extern void nRF_download_RX_payload(char *data);
+extern void nRF_upload_TX_payload(uint8_t *data);
+extern void nRF_download_RX_payload(uint8_t *data);
 
 extern void nRF_FLUSH_TX(void);
 extern void nRF_FLUSH_RX(void);
