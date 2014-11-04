@@ -3,8 +3,8 @@
 #include "bioMed_nRF.h"
 #include "bioMed_ADC.h"
 
-#define RXMODE
-//#define TXMODE
+//#define RXMODE
+#define TXMODE
 HandleNRF RF;
 
 
@@ -20,8 +20,7 @@ int i;
 int currentADCindex = 0;
 int adcDataReadyFlag = 0;
 
-converter dataADC[32];
-
+uint8_t dataADC[32];
 
 int main(void) {
 
@@ -56,8 +55,8 @@ int main(void) {
 
     #ifdef TXMODE
     	TA0CCTL0 = CCIE;                          // CCR0 interrupt enabled
-    	TA0CCR0 = 50000;
-    	TA0CTL = TASSEL_2 + MC_1 + TACLR;  // SMCLK, upmode, clear TAR
+    	TA0CCR0 = 1333;//sampling at 12khz with 16 mhz clk
+    	TA0CTL = TASSEL_2 + MC_1 + TACLR;  // ACLK, upmode, clear TAR
     	UART_upload("I am TX\n\r",9);
     	ADC_init();
 
@@ -88,9 +87,9 @@ int main(void) {
 #pragma vector=TIMER0_A0_VECTOR
 __interrupt void TIMER0_A0_ISR(void)
 {
-	if (currentADCindex < 16)
+	if (currentADCindex < 32)
 	{
-		dataADC[currentADCindex].uint = ADC_get();
+		dataADC[currentADCindex] = ADC_get_8bit();
 		currentADCindex++;
 	}
 	else

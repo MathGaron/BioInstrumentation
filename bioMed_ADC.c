@@ -30,3 +30,7 @@ uint16_t ADC_get(){
 }
 
 
+uint8_t ADC_get_8bit(){
+	uint32_t calc=ADC_get();
+	return (uint8_t)(calc*255/4095);
+}

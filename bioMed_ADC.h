@@ -12,7 +12,7 @@
 
 void ADC_init();
 uint16_t ADC_get();
-
+uint8_t ADC_get_8bit();
 
 
 #endif /* BIOMED_ADC_H_ */

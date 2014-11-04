@@ -28,7 +28,7 @@ void nRFHL_clearTxBuffer(HandleNRF *handle);
 void nRFHL_clearRxBuffer(HandleNRF *handle);
 void nRFHL_initSPI();
 void nRFHL_download(HandleNRF *handle);
-void nRFHL_upload(HandleNRF *handle, converter *buffer, int size);
+void nRFHL_upload(HandleNRF *handle, uint8_t *buffer, int size);
 
 
 
